@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+<title>협력직원 앱스토어 라이브러리 API 개별 테스트 페이지</title>
+<link rel="stylesheet" type="text/css" href="../../css/style.css">
+<link rel="stylesheet" type="text/css" href="../../css/morpheus-style.css">	
+<head>
+</head>
+<body>
+<h3>협력직원 앱스토어 라이브러리 API 개별 테스트 페이지</h3>
+
+<button id="btnBack">뒤로가기</button><br><br>
+<h5>1. 앱스토어 라이브러리 API</h5>
+<button id="btnAuth" onclick="storeLibAuth()">인증</button><br><br>
+<button id="btnGoInstallPage" onclick="storeLibGoInstallPage()">앱스토어 설치 페이지 이동</button><br><br>
+<button id="btnLogin" onclick="storeLibLogin()">로그인을 위해 앱스토어 호출</button><br><br>
+<button id="btnUpdate" onclick="storeLibUpdate()">업데이트를 위해 앱스토어 호출</button><br><br>
+<button id="btnGetUserInfo" onclick="storeGetUserInfo()">앱스토어 로그인 사용자 정보</button><br><br>
+
+</body>
+
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<script type="text/javascript">
+
+document.querySelector('#btnBack').onclick=function(){
+    M.page.back();
+}
+
+var memberYN = "N"; // 정직원 여부(Y: 정직원, 그외:협력직원)
+
+/**
+ * callback
+ * resultJsonObj
+ * {"code":"1000", "msg":"정상 인증"}
+ * code
+ * 1000 : 정상 인증
+ * 2000 : 인증 오류
+ * 3000 : ID 또는 비밀번호 오류
+ * 4000 : Major 업데이트된 App이 스토어에 배포된 상태
+ * 5000 : token 만료
+ * 6000 : token 값이 일치하지 않음
+ * 7000 : 버전 확인 오류
+ * 8000 : 로그아웃
+ * 9000 : 기타 오류
+ * 9001 : 스토어가 설치되어 있지 않음
+ * 9002 : MDM 오류
+ * 9003 : 네이트워크 오류
+ */
+function exWNCallback(resultJsonObj) {
+	console.log("exWNCallback(resultJsonObj)");
+
+	console.log('type of resultJsonObj = ' + typeof resultJsonObj);
+	console.log(JSON.stringify(resultJsonObj));
+	alert(JSON.stringify(resultJsonObj));
+}
+
+function storeLibAuth() {
+	console.log('function storeLibAuth()');
+	M.execute("exWNStoreLib_auth", memberYN, "exWNCallback");
+};
+
+function storeLibGoInstallPage() {
+	console.log('function storeLibGoInstallPage()');
+	M.execute("exWNStoreLib_goAppStoreInstallPage", memberYN);
+};
+
+function storeLibLogin() {
+	console.log('function storeLibLogin()');
+	M.execute("exWNStoreLib_login", memberYN, "schemeLogin");
+};
+
+function storeLibUpdate() {
+	console.log('function storeLibUpdate()');
+	M.execute("exWNStoreLib_update", memberYN, "schemeUpdate");
+};
+
+function storeGetUserInfo() {
+	console.log('function storeGetUserInfo()');
+	M.execute("exWNStoreLib_getUserInfo", memberYN, "exWNCallback");
+};
+
+M.onReady(function(e) {
+
+});
+
+M.onHide(function(e){
+
+});
+
+M.onRestore(function(e) {
+
+});
+
+M.onBack( function(e) {
+    M.page.back();
+});
+
+var MStatus = {
+        onReady : function(){},
+//        onBack : function(){},
+        onRestore : function(){},
+        onHide : function(){},
+        onDestroy : function(){},
+        onPause : function(){},
+        onResume : function(){}
+}
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title>협력직원 앱스토어 라이브러리 테스트</title>
+</head>
+
+<body>
+	<h1>협력직원 앱스토어 라이브러리 테스트</h1>
+	<button id="btnGoAPITestPage" onclick="goAPITestPage()">각 API 테스트 페이지 이동</button><br><br>
+	<button id="btnGoAuthPage" onclick="goAuthPage()">인증 연동 페이지 이동</button><br><br>
+	
+</body>
+
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<script type="text/javascript">
+
+function goAPITestPage() {
+    M.page.html({
+        url: 'store-lib-api-sample.html',
+        actionType: 'NEW_SCR'
+    });
+}
+
+function goAuthPage() {
+    M.page.html({
+        url: 'store-lib-auth-sample.html',
+        actionType: 'NEW_SCR'
+    });
+}
+
+M.onReady(function(e) {
+	
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+var isClick = false;
+M.onBack(function(){
+	if(isClick == false) {
+		isClick = true;
+		if(confirm('종료하시겠습니까?')){
+			M.sys.exit();
+		} else{
+			setTimeout(function(){
+				isClick = false;
+			},500);
+		}
+	}
+});
+
+
+</script>
+
+</html>

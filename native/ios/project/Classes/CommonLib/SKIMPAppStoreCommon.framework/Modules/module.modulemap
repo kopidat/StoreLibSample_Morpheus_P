@@ -1,0 +1,6 @@
+framework module SKIMPAppStoreCommon {
+  umbrella header "SKIMPAppStoreCommon.h"
+
+  export *
+  module * { export * }
+}
